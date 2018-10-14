@@ -3,9 +3,10 @@
 open System
 open Car
 
-let getDestinationString =
+let getDestinationString() =
     Console.Write("Enter destination: ")
-    Console.ReadLine()
+    let str = Console.ReadLine()
+    str
 
 let getProperDestination destination =
     if destination = "Petrol" then Destinations.Petrol
@@ -20,9 +21,9 @@ let mutable petrol = 100
 let main argv = 
     while true do
         try
-            let dest = getDestinationString
-            let destination = getProperDestination dest
+            let dest = getDestinationString()
             printfn "Trying to drive to %s" dest
+            let destination = getProperDestination dest
             petrol <- driveTo(petrol, destination)
             printfn "Made it to %s! You have %d petrol left" dest petrol
         with ex -> printfn "ERROR: %s" ex.Message

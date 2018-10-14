@@ -16,10 +16,12 @@ let getDistance destination =
     else failwith "Unknown destination"
 
 let calculateRemainingPetrol (currentPetrol:int, distance:int) = 
-    if currentPetrol >= distance then currentPetrol - distance
+    let remainingPetrol = currentPetrol - distance
+    if remainingPetrol >= 0 then currentPetrol - distance
     else failwith "Oops! You have run out of petrol!"
 
 let driveTo (petrol, destination) =
-    let petrolAfterDriving = calculateRemainingPetrol(petrol, getDistance destination)
+    let distanceToNextDestination = getDistance destination
+    let petrolAfterDriving = calculateRemainingPetrol(petrol, distanceToNextDestination)
     if destination = Destinations.Petrol then petrolAfterDriving + 50
     else petrolAfterDriving
