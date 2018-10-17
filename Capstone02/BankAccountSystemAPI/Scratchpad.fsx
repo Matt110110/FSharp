@@ -1,15 +1,20 @@
-﻿#load "Domain.fs"
-#load "Operations.fs"
-open BankAccountSystemAPI
-open Operations
+﻿open System
+#load "Domain.fs"
+#load "Auditing.fs"
 
-let customer1 = { Firstname = "Roger"; Lastname = "Kavery"; Age = 43 }
-let acc1 = 
+open BankAccountSystemAPI
+open Audit
+
+let acc:Account = 
     {
-    UniqueID = "511785250201000"
-    Owner = customer1
-    CurrentBalance = 8990.34M
+    UniqueID = "1"
+    CurrentBalance = 19920M
+    Owner = 
+        {
+        Firstname = "Fag"
+        Lastname = "Got"
+        Age = 21
+        }
     }
 
-let depositTen = deposit 10M
-let acc2 = depositTen acc2
+consoleAudit acc "Ban"
