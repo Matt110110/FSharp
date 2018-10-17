@@ -20,7 +20,7 @@ module Audit =
     let fileSystemAudit account message = File.WriteAllText(getPath account, getStr account message)
     
     // Function to write the output to the console. 
-    let consoleAudit (account:Account) (message:string) = Console.WriteLine(getStr account message)
+    let consoleAudit account message = Console.WriteLine(getStr account message)
 
     (*
         opType : Enum OperationType; shows deposit or withdraw
