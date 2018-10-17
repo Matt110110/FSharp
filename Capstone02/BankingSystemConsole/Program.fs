@@ -1,5 +1,6 @@
 ﻿open System
 open BankAccountSystemAPI
+open BankAccountSystemAPI
 
 // Take input from the console and store it in file
 let private getAccountDetails() = 
@@ -35,8 +36,8 @@ let main argv =
         let mutable ch = Console.ReadLine() |> int
         try
             match ch with
-                | 1 -> amt <- getAmmount(); account <- Audit.depositWithConsoleAudit amt account
-                | 2 -> amt <- getAmmount(); account <- Audit.withdrawWithConsoleAudit amt account
+                | 1 -> amt <- getAmmount(); account <- Operations.deposit amt account; Audit.consoleAudit account "Deposit"
+                | 2 -> amt <- getAmmount(); account <- Operations.withdraw amt account; Audit.consoleAudit account "Withdraw"
                 | 3 -> choice <- false
                 | _ -> printfn "Please enter a valid choice"
         with

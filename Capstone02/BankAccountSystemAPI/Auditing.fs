@@ -7,7 +7,7 @@ open Operations
 module Audit =
     // Function to generate a string in the format
     let getStr account message = 
-        let str = sprintf "\nName : %s\nAccount no. : %s\nBalance : %f\nMessage : %s\n" (account.Owner.Firstname + " " + account.Owner.Lastname ) account.UniqueID account.CurrentBalance message
+        let str = sprintf "Initial Details:\nName : %s\nAccount no. : %s\nBalance : %f\nMessage : %s\n" (account.Owner.Firstname + " " + account.Owner.Lastname ) account.UniqueID account.CurrentBalance message
         str
 
     // Function to generate the path where the file is to be stored
@@ -29,14 +29,15 @@ module Audit =
         amt : The ammount to use on the operation
         account : The Account to act upon
     *)
-    let auditAs opType audit operation amt account =
+    let auditAs opType operation audit amt account =
         match opType with 
             | OperationType.Withdraw -> audit account "Withdraw" 
             | OperationType.Deposit -> audit account "Deposit"
+            | _ -> failwith "Unknown operation performed."
         operation amt account
 
     // Predefined partially curried functions for simplicity
-    let depositWithConsoleAudit = auditAs OperationType.Deposit consoleAudit deposit
-    let withdrawWithConsoleAudit = auditAs OperationType.Withdraw consoleAudit withdraw
-    let depositWithFileAudit = auditAs OperationType.Deposit fileSystemAudit deposit
-    let withdrawWithFileAudit = auditAs OperationType.Withdraw fileSystemAudit withdraw
+    let depositWithConsoleAudit = auditAs OperationType.Deposit deposit consoleAudit
+    let withdrawWithConsoleAudit = auditAs OperationType.Withdraw withdraw consoleAudit
+    let depositWithFileAudit = auditAs OperationType.Deposit deposit fileSystemAudit
+    let withdrawWithFileAudit = auditAs OperationType.Withdraw withdraw fileSystemAudit
