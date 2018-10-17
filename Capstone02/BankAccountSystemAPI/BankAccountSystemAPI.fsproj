@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Auditing.fs" />
+    <Compile Include="Domain.fs" />
+    <Compile Include="Operations.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Scratchpad.fsx" />
+  </ItemGroup>
+
+</Project>
