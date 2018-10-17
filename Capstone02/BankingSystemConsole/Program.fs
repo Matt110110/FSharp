@@ -33,9 +33,12 @@ let main argv =
         printfn "2. Withdraw cash"
         printfn "3. Exit"
         let mutable ch = Console.ReadLine() |> int
-        match ch with
-            | 1 -> account <- Audit.depositWithConsoleAudit amt account
-            | 2 -> account <- Audit.withdrawWithConsoleAudit amt account
-            | 3 -> choice <- false
-            | _ -> printfn "Please enter a valid choice"
+        try
+            match ch with
+                | 1 -> account <- Audit.depositWithConsoleAudit amt account
+                | 2 -> account <- Audit.withdrawWithConsoleAudit amt account
+                | 3 -> choice <- false
+                | _ -> printfn "Please enter a valid choice"
+        with
+            | ex -> printfn "Error message: %s" ex.Message
     0 // return an integer exit code

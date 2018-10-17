@@ -36,7 +36,7 @@ module Audit =
         operation amt account
 
     // Predefined partially curried functions for simplicity
-    let depositWithConsoleAudit = auditAs OperationType.Deposit consoleAudit withdraw
+    let depositWithConsoleAudit = auditAs OperationType.Deposit consoleAudit deposit
     let withdrawWithConsoleAudit = auditAs OperationType.Withdraw consoleAudit withdraw
-    let depositWithFileAudit = auditAs OperationType.Deposit fileSystemAudit withdraw
+    let depositWithFileAudit = auditAs OperationType.Deposit fileSystemAudit deposit
     let withdrawWithFileAudit = auditAs OperationType.Withdraw fileSystemAudit withdraw
