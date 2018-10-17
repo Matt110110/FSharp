@@ -13,3 +13,7 @@ type Account =
     CurrentBalance : decimal
     Owner : Customer
     }
+
+type OperationType = 
+    | Withdraw = 0
+    | Deposit = 1
