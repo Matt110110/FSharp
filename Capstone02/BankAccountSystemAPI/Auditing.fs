@@ -28,13 +28,16 @@ module Audit =
         operation : The operation that's needed. Either deposit or withdraw function
         amt : The ammount to use on the operation
         account : The Account to act upon
+
+        It is possible to just perform the operation and return it in a single line, but in that case the print statement will be wrong, as it will show the previous account details.
     *)
     let auditAs opType operation audit amt account =
+        let newAccount = operation amt account
         match opType with 
-            | OperationType.Withdraw -> audit account "Withdraw" 
-            | OperationType.Deposit -> audit account "Deposit"
+            | OperationType.Withdraw -> audit newAccount "Withdraw" 
+            | OperationType.Deposit -> audit newAccount "Deposit"
             | _ -> failwith "Unknown operation performed."
-        operation amt account
+        newAccount
 
     // Predefined partially curried functions for simplicity
     let depositWithConsoleAudit = auditAs OperationType.Deposit deposit consoleAudit
