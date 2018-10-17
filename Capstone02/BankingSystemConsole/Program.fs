@@ -17,7 +17,7 @@ let private getAccountDetails() =
     let amt = Console.ReadLine() |> decimal
     { UniqueID = accNo; Owner = owner; CurrentBalance = amt }
 
-let amt() =
+let getAmmount() =
     printfn "Enter the ammount"
     Console.ReadLine() |> decimal
 
@@ -26,7 +26,7 @@ let main argv =
     Console.WriteLine("Welcome to the bank\n")
     let mutable account = getAccountDetails()
     let mutable choice = true
-    let mutable amt = amt()
+    let mutable amt = 0M
     while choice do
         printfn "\n\nPlease select your preferred operation:"
         printfn "1. Deposit cash"
@@ -35,8 +35,8 @@ let main argv =
         let mutable ch = Console.ReadLine() |> int
         try
             match ch with
-                | 1 -> account <- Audit.depositWithConsoleAudit amt account
-                | 2 -> account <- Audit.withdrawWithConsoleAudit amt account
+                | 1 -> amt <- getAmmount(); account <- Audit.depositWithConsoleAudit amt account
+                | 2 -> amt <- getAmmount(); account <- Audit.withdrawWithConsoleAudit amt account
                 | 3 -> choice <- false
                 | _ -> printfn "Please enter a valid choice"
         with
