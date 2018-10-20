@@ -37,7 +37,7 @@ let main argv =
         try
             match ch with
                 | 1 -> amt <- getAmmount(); account <- depositWithConsoleAudit amt account; consoleAudit account "Deposit"
-                | 2 -> amt <- getAmmount(); account <- depositWithConsoleAudit amt account; consoleAudit account "Withdraw"
+                | 2 -> amt <- getAmmount(); account <- withdrawWithConsoleAudit amt account; consoleAudit account "Withdraw"
                 | 3 -> choice <- false
                 | _ -> printfn "Please enter a valid choice"
         with
