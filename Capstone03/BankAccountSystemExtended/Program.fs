@@ -2,7 +2,6 @@
 open BankAccountSystemAPI
 open Audit
 
-
 // Take input from the console and store it in file
 let private getAccountDetails() = 
     printfn "Enter the account number: "
@@ -19,45 +18,48 @@ let private getAccountDetails() =
     let amt = Console.ReadLine() |> decimal
     { UniqueID = accNo; Owner = owner; CurrentBalance = amt }
 
-let getAmmount() =
+// Gets the ammount to be used for the operation and return a tuple of the command
+let getAmmount cmd =
     printfn "Enter the ammount"
-    Console.ReadLine() |> decimal
+    let amt = Console.ReadLine() |> decimal
+    (cmd, amt)
 
+// Shows the options and asks the users to enter the list of space separated operations
 let getCommand() =
     printfn "\n\nPlease select your preferred operation:"
     printfn "1. Deposit cash"
     printfn "2. Withdraw cash"
     printfn "3. Exit"
-    let choice = Console.ReadLine() |> int
-    match choice with 
-        | 1 -> OperationType.Deposit
-        | 2 -> OperationType.Withdraw
-        | 3 -> OperationType.Exit
-        | _ -> failwith "Not a valid choice"
+    printfn "Enter a space separated sequence of operations you want to perform:"
+    let choice = Console.ReadLine()
+    let choices = 
+        choice.Split(' ')
+        |> Seq.map (fun u -> u |> int)
+    choices
+
+let processCommand account (command, ammount) =
+    if command = 1 then depositWithConsoleAudit ammount account
+    elif command = 2 && ammount <= account.CurrentBalance then withdrawWithConsoleAudit ammount account
+    elif command = 2 && ammount > account.CurrentBalance then failwith "Account balance insufficient"
+    else account
 
 
-let acc =
-    let command = getCommand()
-    match command with 
-        | OperationType.Deposit -> ()
-        | OperationType.Withdraw -> ()
-        | OperationType.Exit -> ()
+let acc() =
+    let account = getAccountDetails()
+    let commands = getCommand()
+    commands
+    |> Seq.filter(fun i -> i = 1 || i = 2 || i = 3)
+    |> Seq.takeWhile (not << fun i -> i = 3)
+    |> Seq.map getAmmount
+    |> Seq.fold processCommand account
+
 
 [<EntryPoint>]
 let main argv =
     Console.WriteLine("Welcome to the bank\n")
-    let mutable account = getAccountDetails()
-    let mutable choice = true
-    let mutable amt = 0M
-    while choice do
-        
-        let mutable ch = Console.ReadLine() |> int
-        try
-            match ch with
-                | 1 -> amt <- getAmmount(); account <- depositWithConsoleAudit amt account; consoleAudit account "Deposit"
-                | 2 -> amt <- getAmmount(); account <- withdrawWithConsoleAudit amt account; consoleAudit account "Withdraw"
-                | 3 -> choice <- false
-                | _ -> printfn "Please enter a valid choice"
-        with
-            | ex -> printfn "Error message: %s" ex.Message
+    try
+        let x = acc()
+        x |> ignore
+    with
+        ex -> printfn "%s" ex.Message
     0 // return an integer exit code
