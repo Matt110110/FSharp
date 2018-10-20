@@ -24,3 +24,9 @@ The objective is to write a simple API that then can be implemented by any F# or
 * Opening multiple accounts
 * Reading data from filesystem
 * Warning the user if the user tries to overdraw the account
+
+## 3. Adding more features to the Simple Bank account system
+The objective of this capstone project is to extend the functionality of the Bank account system previously built in the Capstone 2 project. The changes to be made in this project are:
+1. Updating the main command handling routine to eliminate mutable variables
+2. Sorting a serialized transaction log to disk for each customer
+3. Rehydrating historical transactions and building up-to-date account by using sequence operations
