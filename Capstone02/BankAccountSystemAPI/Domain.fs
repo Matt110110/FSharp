@@ -17,3 +17,4 @@ type Account =
 type OperationType = 
     | Withdraw = 0
     | Deposit = 1
+    | Exit = 2

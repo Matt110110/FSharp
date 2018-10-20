@@ -2,6 +2,7 @@
 open BankAccountSystemAPI
 open Audit
 
+
 // Take input from the console and store it in file
 let private getAccountDetails() = 
     printfn "Enter the account number: "
@@ -22,6 +23,26 @@ let getAmmount() =
     printfn "Enter the ammount"
     Console.ReadLine() |> decimal
 
+let getCommand() =
+    printfn "\n\nPlease select your preferred operation:"
+    printfn "1. Deposit cash"
+    printfn "2. Withdraw cash"
+    printfn "3. Exit"
+    let choice = Console.ReadLine() |> int
+    match choice with 
+        | 1 -> OperationType.Deposit
+        | 2 -> OperationType.Withdraw
+        | 3 -> OperationType.Exit
+        | _ -> failwith "Not a valid choice"
+
+
+let acc =
+    let command = getCommand()
+    match command with 
+        | OperationType.Deposit -> ()
+        | OperationType.Withdraw -> ()
+        | OperationType.Exit -> ()
+
 [<EntryPoint>]
 let main argv =
     Console.WriteLine("Welcome to the bank\n")
@@ -29,10 +50,7 @@ let main argv =
     let mutable choice = true
     let mutable amt = 0M
     while choice do
-        printfn "\n\nPlease select your preferred operation:"
-        printfn "1. Deposit cash"
-        printfn "2. Withdraw cash"
-        printfn "3. Exit"
+        
         let mutable ch = Console.ReadLine() |> int
         try
             match ch with

@@ -1,6 +1,10 @@
 ﻿#load "E:\\VCS\\FSharp\\Capstone02\\BankAccountSystemAPI\\Domain.fs"
+#load "E:\\VCS\\FSharp\\Capstone02\\BankAccountSystemAPI\\Operations.fs"
+#load "E:\\VCS\\FSharp\\Capstone02\\BankAccountSystemAPI\\Auditing.fs"
 open BankAccountSystemAPI
 open System
+open Operations
+open Audit
 
 let openingAccount = 
     {
@@ -23,8 +27,8 @@ let getAmmount command =
     else (command, 50M)
 
 let processCommand account (command, ammount) =
-    if command = 'w' then {account with CurrentBalance = account.CurrentBalance - ammount}
-    elif command = 'd' then {account with CurrentBalance = account.CurrentBalance + ammount }
+    if command = 'w' then withdrawWithConsoleAudit ammount account
+    elif command = 'd' then depositWithConsoleAudit ammount account
     else account
 
 let acc =
