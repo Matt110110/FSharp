@@ -40,7 +40,7 @@ let getCommand() =
 let processCommand account (command, ammount) =
     if command = 1 then depositWithConsoleAudit ammount account
     elif command = 2 && ammount <= account.CurrentBalance then withdrawWithConsoleAudit ammount account
-    elif command = 2 && ammount > account.CurrentBalance then failwith "Account balance insufficient"
+    elif command = 2 && ammount > account.CurrentBalance then printfn "Account balance insufficient"; account
     else account
 
 
