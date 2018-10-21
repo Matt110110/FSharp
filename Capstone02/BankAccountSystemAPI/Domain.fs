@@ -1,5 +1,7 @@
 namespace BankAccountSystemAPI
 
+open System
+
 type Customer = 
     {
     Firstname : string
@@ -17,3 +19,12 @@ type Account =
 type OperationType = 
     | Withdraw = 0
     | Deposit = 1
+    | Exit = 2
+    
+type Transaction =
+    {
+    Amount : decimal
+    Operation : OperationType
+    Time : DateTime
+    Attempt : bool
+    }
