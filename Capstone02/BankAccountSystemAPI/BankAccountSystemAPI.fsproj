@@ -8,11 +8,11 @@
     <Compile Include="Domain.fs" />
     <Compile Include="Operations.fs" />
     <Compile Include="Transactions.fs" />
-    <Compile Include="Auditing.fs" />
     <Compile Include="FileRepository.fs" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="Auditing.fs" />
     <None Include="Scratchpad.fsx" />
   </ItemGroup>
 

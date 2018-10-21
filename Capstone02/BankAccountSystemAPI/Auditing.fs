@@ -18,7 +18,7 @@ module Audit =
     // Function to generate the path where the file is to be stored
     // Path format = *parent folder*\{customername}\{accountid}.txt 
     let getPath account = 
-        let path = sprintf "E:\\VCS\\FSharp\\BankAccountSystemAPI\\%s\\%s.txt" (account.Owner.Firstname + "_" + account.Owner.Lastname) account.UniqueID
+        let path = sprintf "E:\\VCS\\FSharp\\BankAccountSystemAPI\\%s\\%s_%s.txt" (account.Owner.Firstname + "_" + account.Owner.Lastname) (account.Owner.Firstname + "_" + account.Owner.Lastname) account.UniqueID
         path
 
     // Function to write the output to a file. For now .txt file but in real life application you have to use some other more secure formats.

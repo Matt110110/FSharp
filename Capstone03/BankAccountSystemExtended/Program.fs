@@ -2,6 +2,8 @@
 open BankAccountSystemAPI
 open Audit
 
+let loadAccountFromDisk = FileRepository.findTransactionsOnDisk >> Operations.loadAccount
+
 let private GetUser =
     let fname =
         Console.Write "Please enter your first name: "
@@ -35,7 +37,10 @@ let processCommand account (command, ammount) =
 [<EntryPoint>]
 let main _ =
     let user = GetUser
-    let openingAccount = { Owner = user; CurrentBalance = 0M; UniqueID = "" } 
+    let openingAccount = 
+        Console.Write "Please enter your name: "
+
+        Console.ReadLine() |> loadAccountFromDisk
     let closingAccount =
         // Fill in the main loop here...
         getCommand
