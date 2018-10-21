@@ -17,16 +17,15 @@ module FileRepository =
             let folder = Seq.head folders
             DirectoryInfo(folder).Name
 
-    let private buildPath(owner, accountId) = sprintf @"%s%s_%s" accountsPath (owner.Firstname + "_" + owner.Lastname) accountId
+    let private buildPath(owner, accountId) = sprintf @"%s%s_%s" accountsPath owner accountId
 
     let loadTransactions (folder:string) =
         let owner, accountId =
             let parts = folder.Split '_'
-            parts.[0], Guid.Parse parts.[1]
+            parts.[0], parts.[1]
         owner, accountId, buildPath(owner, accountId)
-            |> Directory.EnumerateFiles
-            |> Seq.map (File.ReadAllText >> Transactions.deserialize)
-
+                      |> Directory.EnumerateFiles
+                      |> Seq.map (File.ReadAllText >> Transactions.deserialize)
 
 
     let writeTransaction accountId owner transaction =
@@ -38,6 +37,6 @@ module FileRepository =
     
     let findTransactionsOnDisk owner =
         let folder = findAccountFolder owner
-        if String.IsNullOrEmpty folder then owner, Guid.NewGuid(), Seq.empty
+        if String.IsNullOrEmpty folder then (owner.Firstname + "_" + owner.Lastname + "_" + string owner.Age), "", Seq.empty
         else loadTransactions folder
 

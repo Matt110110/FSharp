@@ -10,7 +10,7 @@ module Transactions =
 
     let serialize transactions = sprintf "%O***%O***%M***%b" transactions.Time transactions.Operation transactions.Amount transactions.Attempt
     
-    let deselrialize (filecontents:string) =
+    let deserialize (filecontents:string) =
         let parts = filecontents.Split([|"***"|], StringSplitOptions.None)
         {
         Time = parts.[0] |> DateTime.Parse

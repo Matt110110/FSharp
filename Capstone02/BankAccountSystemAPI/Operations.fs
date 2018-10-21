@@ -7,8 +7,11 @@ module Operations =
         if account.CurrentBalance >= ammount then { account with CurrentBalance = account.CurrentBalance - ammount }
         else printfn "Account balance is low. Transaction declined."; account
 
-    let loadAccount (owner, accountId, transactions) =
-        let openingAccount = { UniqueID = accountId; CurrentBalance = 0M; Owner = owner }
+    let loadAccount (owner:string, accountId, transactions) =
+        let fname, lname, age = 
+            let parts = owner.Split '_' 
+            parts.[0], parts.[1], parts.[2] |> int
+        let openingAccount = { UniqueID = accountId; CurrentBalance = 0M; Owner = { Firstname = fname; Lastname = lname; Age = age } }
         transactions
         |> Seq.sortBy(fun txn -> txn.Time)
         |> Seq.fold(fun account txn ->

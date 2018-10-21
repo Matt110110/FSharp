@@ -38,9 +38,7 @@ let processCommand account (command, ammount) =
 let main _ =
     let user = GetUser
     let openingAccount = 
-        Console.Write "Please enter your name: "
-
-        Console.ReadLine() |> loadAccountFromDisk
+        user |> loadAccountFromDisk
     let closingAccount =
         // Fill in the main loop here...
         getCommand
