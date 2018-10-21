@@ -5,4 +5,4 @@ module Operations =
 
     let withdraw ammount account =
         if account.CurrentBalance >= ammount then { account with CurrentBalance = account.CurrentBalance - ammount }
-        else failwith "Account balance is low."
+        else printfn "Account balance is low. Transaction declined."; account

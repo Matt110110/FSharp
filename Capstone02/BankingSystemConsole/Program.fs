@@ -36,8 +36,8 @@ let main argv =
         let mutable ch = Console.ReadLine() |> int
         try
             match ch with
-                | 1 -> amt <- getAmmount(); account <- depositWithConsoleAudit amt account; consoleAudit account "Deposit"
-                | 2 -> amt <- getAmmount(); account <- withdrawWithConsoleAudit amt account; consoleAudit account "Withdraw"
+                | 1 -> amt <- getAmmount(); account <- depositWithConsoleAudit amt account
+                | 2 -> amt <- getAmmount(); account <- withdrawWithConsoleAudit amt account
                 | 3 -> choice <- false
                 | _ -> printfn "Please enter a valid choice"
         with
